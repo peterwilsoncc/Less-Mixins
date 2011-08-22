@@ -1,0 +1,198 @@
+/* ********************************************************
+
+######## ########  #### ########        ##       ########  ######   ######  
+##       ##     ##  ##     ##           ##       ##       ##    ## ##    ## 
+##       ##     ##  ##     ##           ##       ##       ##       ##       
+######   ##     ##  ##     ##           ##       ######    ######   ######  
+##       ##     ##  ##     ##           ##       ##             ##       ## 
+##       ##     ##  ##     ##       ### ##       ##       ##    ## ##    ## 
+######## ########  ####    ##       ### ######## ########  ######   ######  
+
+##    ##  #######  ########         ######   ######   ######  
+###   ## ##     ##    ##           ##    ## ##    ## ##    ## 
+####  ## ##     ##    ##           ##       ##       ##       
+## ## ## ##     ##    ##           ##        ######   ######  
+##  #### ##     ##    ##           ##             ##       ## 
+##   ### ##     ##    ##       ### ##    ## ##    ## ##    ## 
+##    ##  #######     ##       ###  ######   ######   ######  
+
+
+******************************************************** */
+
+
+// OLD STANDARDS
+.clearfix() {
+	zoom: 1;
+	&:after {
+		display: block;
+		visibility: hidden;
+		height: 0;
+		clear: both;
+		content: ".";
+	}
+}
+
+.opacity(@opacity: .9) {
+	opacity: @opacity;
+  filter: e(%("alpha:(opacity=%d)",@opacity * 100));
+  -ms-filter: %("progid:DXImageTransform.Microsoft.Alpha(Opacity=%d)",@opacity * 100);
+}
+
+.links(@color: #1670a4, @focusColor: #fff, @background: transparent) {
+	&:link, &:visited {
+		color: @color;
+		background: @background;
+		text-decoration: none;
+	}
+	
+	&:focus {
+		background: @color;
+		color: @focusColor;
+		text-decoration: none;
+	}
+	
+	&:hover, &:active {
+		color: @color;
+		background: @background;
+		text-decoration: underline;
+	}
+	
+}
+
+.links-underlined(@color, @focusColor, @background: transparent) {
+	&:link, &:visited {
+		color: @color;
+		background: @background;
+		text-decoration: underline;
+	}
+	
+	&:focus {
+		background: @color;
+		color: @focusColor;
+		text-decoration: none;
+	}
+	
+	&:hover, &:active {
+		color: @color;
+		background: @background;
+		text-decoration: none;
+	}
+	
+}
+
+// #### CSS3 Functions #### 
+// most sourced from css3please.com
+
+.border-radius (@radius: 5px) {
+	   -moz-border-radius: @radius; /* FF1-3.6 */
+	-webkit-border-radius: @radius; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+	        border-radius: @radius; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+
+	/* prevent background leaking */
+	   -moz-background-clip: padding; 
+	-webkit-background-clip: padding-box; 
+	        background-clip: padding-box; 
+}
+
+.box-shadow (@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+     -moz-box-shadow: @shadow; /* FF3.5 - 3.6 */
+  -webkit-box-shadow: @shadow; /* Saf3.0+, Chrome */
+          box-shadow: @shadow; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+}
+
+.gradient(@start: #dddddd, @end: #ffffff) {
+  background-color: @start;
+  background-image: -moz-linear-gradient(top, @start, @end);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, @start),color-stop(1, @end));
+  background-image: linear-gradient(top, @start, @end);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=%d,endColorstr=%d)", @start, @end));
+   -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=%d, endColorstr=%d)", @start, @end);
+}
+
+.gradient-horizontal(@startColor: #555555, @endColor: #333333) {
+  background-color: @endColor;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  background-image: -webkit-linear-gradient(right center, @startColor, @endColor);
+  background-image: -moz-linear-gradient(right center, @startColor, @endColor);
+  background-image: -o-linear-gradient(left,  @startColor,  @endColor);
+  background-image: -khtml-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  filter: e(%("progid:DXImageTransform.Microsoft.Gradient(StartColorStr='%d', EndColorStr='%d', GradientType=1)",@startColor,@endColor));
+  -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorStr='%d', EndColorStr='%d', GradientType=1))",@startColor,@endColor);
+}
+
+
+.rgba-background(@red: 0, @blue: 0, @green: 0, @opacity: .25) {
+	
+  background-color: rgb(@red, @blue, @green); 
+  background-color: rgba(@red, @blue, @green, @opacity);  /* FF3+, Saf3+, Opera 10.10+, Chrome, IE9 */
+  /* IE's filter & -ms-filter need to be added seperately */
+
+
+  @redHex: ~`((Number(@{red}).toString(16).length>1)?Number(@{red}).toString(16):"0" + Number(@{red}).toString(16)).toUpperCase()`;
+  @blueHex: ~`((Number(@{blue}).toString(16).length>1)?Number(@{blue}).toString(16):"0" + Number(@{blue}).toString(16)).toUpperCase()`;
+  @greenHex: ~`((Number(@{green}).toString(16).length>1)?Number(@{green}).toString(16):"0" + Number(@{green}).toString(16)).toUpperCase()`;
+  @alpha255: ~`Math.round(@{opacity} * 255)`;
+  @alphaHex: ~`((Number(@{alpha255}).toString(16).length>1)?Number(@{alpha255}).toString(16):"0" + Number(@{alpha255}).toString(16)).toUpperCase()`;
+	filter: ~"@{alphaHex}";
+
+  @iehex: '#@{alphaHex}@{redHex}@{blueHex}@{greenHex}';
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=%d,endColorstr=%d", @iehex, @iehex));
+  zoom: 1;
+
+}
+
+
+
+.rotate(@deg: -1.5) {
+     -moz-transform: e(%("rotate(%d%d)", @deg, deg));  /* FF3.5+ */
+       -o-transform: e(%("rotate(%d%d)", @deg, deg));  /* Opera 10.5 */
+  -webkit-transform: e(%("rotate(%d%d)", @deg, deg));  /* Saf3.1+, Chrome */
+      -ms-transform: e(%("rotate(%d%d)", @deg, deg));  /* IE9 */
+          transform: e(%("rotate(%d%d)", @deg, deg));  
+
+		/* IE's filter needs to be added seperately */
+		
+		@deg2rad: 3.14159265 / 180;
+		@rad: @deg * @deg2rad;
+		
+		@sin: ~`Math.sin(@{rad})`;
+		@cos: ~`Math.cos(@{rad})`;
+		
+		@m11: @cos;
+		@m12: -1 * @sin;
+		@m21: @sin;
+		@m22: @cos;
+
+
+		filter: e(%("progid:DXImageTransform.Microsoft.Matrix(M11=%d, M12=%d,M21=%d, M22=%d, sizingMethod='auto expand')", @m11,@m12,@m21,@m22));
+		zoom: 1;
+
+}
+
+
+.transition(@rule: all 0.3s ease-out) {
+  -webkit-transition: @rule;  /* Saf3.2+, Chrome */
+     -moz-transition: @rule;  /* FF4+ */
+      -ms-transition: @rule;  /* IE10? */
+       -o-transition: @rule;  /* Opera 10.5+ */
+          transition: @rule;  
+}
+
+.background-size-cover(@file: "../../i/bgs/body.png") {
+	background-image: url(@file);
+	filter: e(%("progid:DXImageTransform.Microsoft.AlphaImageLoader(src='%s',sizingMethod='scale')", @file));
+    -ms-filter: %("progid:DXImageTransform.Microsoft.AlphaImageLoader(src='%s',sizingMethod='scale')", @file);
+
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+	     -o-background-size: cover;
+	        background-size: cover;
+	
+}
+
+.columns (@qty: 2, @gap: 15px) {
+  -webkit-column-count: @qty;  -webkit-column-gap: @gap; /* Saf3, Chrome*/
+     -moz-column-count: @qty;     -moz-column-gap: @gap; /* FF3.5+ */
+          column-count: @qty;          column-gap: @gap; /* Opera 11+*/
+}
