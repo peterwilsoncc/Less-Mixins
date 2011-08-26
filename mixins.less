@@ -134,10 +134,9 @@
   @greenHex: ~`((Number(@{green}).toString(16).length>1)?Number(@{green}).toString(16):"0" + Number(@{green}).toString(16)).toUpperCase()`;
   @alpha255: ~`Math.round(@{opacity} * 255)`;
   @alphaHex: ~`((Number(@{alpha255}).toString(16).length>1)?Number(@{alpha255}).toString(16):"0" + Number(@{alpha255}).toString(16)).toUpperCase()`;
-	filter: ~"@{alphaHex}";
 
   @iehex: '#@{alphaHex}@{redHex}@{blueHex}@{greenHex}';
-  filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=%d,endColorstr=%d", @iehex, @iehex));
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=%d,endColorstr=%d)", @iehex, @iehex));
   zoom: 1;
 
 }
